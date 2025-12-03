@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Full Page Cursor Control (Room Instance)</title>
+
+  <link rel="stylesheet" href="/css/webTouchViewport.css">
+</head>
+<body>
+  <div id="qrCodeContainer">
+    <p>Loading Room...</p>
+  </div>
+
+  <!-- Remote cursor -->
+  <div id="cursor"></div>
+
+  <div class="main-content">
+    <h1>Full Page Control Demo (Room Instance)</h1>
+    <p>
+      Scan the QR code or enter the 4-letter ROOM CODE at
+      <a href="/controller" target="_blank">/controller</a>
+      to control ONLY this view.
+    </p>
+
+    <div class="clickable-box" id="testBox">Click Me!</div>
+  </div>
+
+  <div id="inputArea">
+    <form id="testForm">
+      <label for="textField">Text Input:</label>
+      <input
+        type="text"
+        id="textField"
+        name="textField"
+        placeholder="Try clicking here..."
+      >
+
+      <label for="textArea">Text Area:</label>
+      <textarea
+        id="textArea"
+        name="textArea"
+        placeholder="And here..."
+      ></textarea>
+
+      <fieldset class="form-group">
+        <legend>Choose an Option:</legend>
+        <input type="radio" id="radioOpt1" name="radioGroup" value="opt1">
+        <label for="radioOpt1">Option 1</label>
+
+        <input type="radio" id="radioOpt2" name="radioGroup" value="opt2" checked>
+        <label for="radioOpt2">Option 2</label>
+
+        <input type="radio" id="radioOpt3" name="radioGroup" value="opt3">
+        <label for="radioOpt3">Option 3</label>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <legend>Select Items:</legend>
+        <input type="checkbox" id="checkItem1" name="checkItem1" value="item1">
+        <label for="checkItem1">Item A</label>
+
+        <input type="checkbox" id="checkItem2" name="checkItem2" value="item2">
+        <label for="checkItem2">Item B</label>
+
+        <input type="checkbox" id="checkItem3" name="checkItem3" value="item3" checked>
+        <label for="checkItem3">Item C</label>
+      </fieldset>
+
+      <button type="submit" id="submitButton">Submit Form</button>
+    </form>
+  </div>
+
+  <!-- Socket.IO client from your Node server -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- QRCode library (global QRCode) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <!-- Page-specific behavior (demo / student app) -->
+  <script type="module" src="/js/myApp.js"></script>
+</body>
+</html>
