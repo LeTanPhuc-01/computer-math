@@ -1,0 +1,175 @@
+/* public/css/webTouchViewport.css */
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  font-family: sans-serif;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remote cursor */
+
+#cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: none;
+  z-index: 9999;
+  transition: background-color 0.1s ease;
+}
+
+#cursor.visible {
+  display: block;
+}
+
+/* Layout areas */
+
+.main-content {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+#inputArea {
+  padding: 20px;
+  background-color: #e0e0e0;
+  border-top: 1px solid #ccc;
+  flex-shrink: 0;
+}
+
+/* Inputs / form */
+
+#inputArea label[for="textField"],
+#inputArea label[for="textArea"] {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#inputArea input[type="text"],
+#inputArea textarea {
+  width: 95%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 16px;
+  caret-color: auto;
+}
+
+#inputArea textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.clickable-box {
+  width: 150px;
+  height: 80px;
+  background-color: lightblue;
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.clickable-box:hover {
+  background-color: lightcoral;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px dashed #bbb;
+  border-radius: 4px;
+}
+
+.form-group legend {
+  font-weight: bold;
+  padding: 0 5px;
+}
+
+.form-group label {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Manual focus / hover visuals used by app.js */
+
+input[type="text"]:focus,
+textarea:focus,
+input[type="text"].manual-focus,
+textarea.manual-focus {
+  outline: 2px solid blue;
+  outline-offset: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+
+.manual-hover {
+  outline: 2px solid green;
+  outline-offset: 2px;
+}
+
+label.manual-hover-associated {
+  text-decoration: underline;
+  color: green;
+}
+
+input[type="text"].manual-focus.manual-hover,
+textarea.manual-focus.manual-hover {
+  outline-color: blue;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+
+/* QR code badge */
+
+#qrCodeContainer {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: white;
+  padding: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  z-index: 500;
+}
+
+#qrCodeContainer p {
+  margin: 0 0 5px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  letter-spacing: 2px;
+}
+
+#qrCodeContainer canvas {
+  display: block;
+  margin: 5px auto 0;
+}

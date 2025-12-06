@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Touch Controller</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <!-- Shared WebTouch styles (light theme by default) -->
+  <link rel="stylesheet" href="/css/webtouch.css">
+  <!-- Controller-specific styles -->
+  <link rel="stylesheet" href="/css/webtouchController.css">
+</head>
+<body>
+  <!-- Manual Join Form -->
+  <div id="manualJoinForm">
+    <label for="manualRoomIdInput">Room Code:</label>
+    <input
+      type="text"
+      id="manualRoomIdInput"
+      size="4"
+      maxlength="4"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+    />
+    <button id="joinManualRoomButton">Join</button>
+  </div>
+
+  <!-- Main Controller UI -->
+  <div id="controllerUiWrapper">
+    <div id="touchSurface">
+      <div id="introAnimation">
+        <div id="animHand">👆</div>
+        <div id="animDot"></div>
+        <p>Touch and drag here to control cursor</p>
+      </div>
+    </div>
+
+    <div id="statusMessage">
+      Connecting...
+    </div>
+
+    <div id="virtualKeyboard">
+      <!-- === Letters Layer === -->
+      <div class="keyboard-layer active" id="layer-letters">
+        <div class="keyboard-row">
+          <button class="keyboard-key" data-key="q" data-shift="Q">q</button>
+          <button class="keyboard-key" data-key="w" data-shift="W">w</button>
+          <button class="keyboard-key" data-key="e" data-shift="E">e</button>
+          <button class="keyboard-key" data-key="r" data-shift="R">r</button>
+          <button class="keyboard-key" data-key="t" data-shift="T">t</button>
+          <button class="keyboard-key" data-key="y" data-shift="Y">y</button>
+          <button class="keyboard-key" data-key="u" data-shift="U">u</button>
+          <button class="keyboard-key" data-key="i" data-shift="I">i</button>
+          <button class="keyboard-key" data-key="o" data-shift="O">o</button>
+          <button class="keyboard-key" data-key="p" data-shift="P">p</button>
+        </div>
+        <div class="keyboard-row" style="padding: 0 5%;">
+          <button class="keyboard-key" data-key="a" data-shift="A">a</button>
+          <button class="keyboard-key" data-key="s" data-shift="S">s</button>
+          <button class="keyboard-key" data-key="d" data-shift="D">d</button>
+          <button class="keyboard-key" data-key="f" data-shift="F">f</button>
+          <button class="keyboard-key" data-key="g" data-shift="G">g</button>
+          <button class="keyboard-key" data-key="h" data-shift="H">h</button>
+          <button class="keyboard-key" data-key="j" data-shift="J">j</button>
+          <button class="keyboard-key" data-key="k" data-shift="K">k</button>
+          <button class="keyboard-key" data-key="l" data-shift="L">l</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key key-shift" id="shiftLetters">⇧</button>
+          <button class="keyboard-key" data-key="z" data-shift="Z">z</button>
+          <button class="keyboard-key" data-key="x" data-shift="X">x</button>
+          <button class="keyboard-key" data-key="c" data-shift="C">c</button>
+          <button class="keyboard-key" data-key="v" data-shift="V">v</button>
+          <button class="keyboard-key" data-key="b" data-shift="B">b</button>
+          <button class="keyboard-key" data-key="n" data-shift="N">n</button>
+          <button class="keyboard-key" data-key="m" data-shift="M">m</button>
+          <button class="keyboard-key key-backspace" data-key="Backspace">⌫</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key key-mode-switch" data-target-mode="numbers">?123</button>
+          <button class="keyboard-key" data-key=",">,</button>
+          <button class="keyboard-key key-space" data-key=" ">Space</button>
+          <button class="keyboard-key" data-key=".">.</button>
+          <button class="keyboard-key key-enter" data-key="Enter">⏎</button>
+        </div>
+      </div>
+
+      <!-- === Numbers/Symbols Layer === -->
+      <div class="keyboard-layer" id="layer-numbers">
+        <div class="keyboard-row">
+          <button class="keyboard-key" data-key="1">1</button>
+          <button class="keyboard-key" data-key="2">2</button>
+          <button class="keyboard-key" data-key="3">3</button>
+          <button class="keyboard-key" data-key="4">4</button>
+          <button class="keyboard-key" data-key="5">5</button>
+          <button class="keyboard-key" data-key="6">6</button>
+          <button class="keyboard-key" data-key="7">7</button>
+          <button class="keyboard-key" data-key="8">8</button>
+          <button class="keyboard-key" data-key="9">9</button>
+          <button class="keyboard-key" data-key="0">0</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key" data-key="@">@</button>
+          <button class="keyboard-key" data-key="#">#</button>
+          <button class="keyboard-key" data-key="$">$</button>
+          <button class="keyboard-key" data-key="_">_</button>
+          <button class="keyboard-key" data-key="&">&amp;</button>
+          <button class="keyboard-key" data-key="-">-</button>
+          <button class="keyboard-key" data-key="+">+</button>
+          <button class="keyboard-key" data-key="(">(</button>
+          <button class="keyboard-key" data-key=")">)</button>
+          <button class="keyboard-key" data-key="/">/</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key key-mode-switch" data-target-mode="symbols2">=\&lt;</button>
+          <button class="keyboard-key" data-key="*">*</button>
+          <button class="keyboard-key" data-key='"'>" </button>
+          <button class="keyboard-key" data-key="'">'</button>
+          <button class="keyboard-key" data-key=":">:</button>
+          <button class="keyboard-key" data-key=";">;</button>
+          <button class="keyboard-key" data-key="!">!</button>
+          <button class="keyboard-key" data-key="?">?</button>
+          <button class="keyboard-key key-backspace" data-key="Backspace">⌫</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key key-mode-switch" data-target-mode="letters">ABC</button>
+          <button class="keyboard-key" data-key=",">,</button>
+          <button class="keyboard-key key-space" data-key=" ">Space</button>
+          <button class="keyboard-key" data-key=".">.</button>
+          <button class="keyboard-key key-enter" data-key="Enter">⏎</button>
+        </div>
+      </div>
+
+      <!-- === Symbols Layer 2 === -->
+      <div class="keyboard-layer" id="layer-symbols2">
+        <div class="keyboard-row">
+          <button class="keyboard-key" data-key="~">~</button>
+          <button class="keyboard-key" data-key="`">`</button>
+          <button class="keyboard-key" data-key="|">|</button>
+          <button class="keyboard-key" data-key="×">×</button>
+          <button class="keyboard-key" data-key="€">€</button>
+          <button class="keyboard-key" data-key="£">£</button>
+          <button class="keyboard-key" data-key="¥">¥</button>
+          <button class="keyboard-key" data-key="^">^</button>
+          <button class="keyboard-key" data-key="°">°</button>
+          <button class="keyboard-key" data-key="=">=</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key" data-key="%">%</button>
+          <button class="keyboard-key" data-key="©">©</button>
+          <button class="keyboard-key" data-key="®">®</button>
+          <button class="keyboard-key" data-key="™">™</button>
+          <button class="keyboard-key" data-key="✓">✓</button>
+          <button class="keyboard-key" data-key="[">[</button>
+          <button class="keyboard-key" data-key="]">]</button>
+          <button class="keyboard-key" data-key="{">{</button>
+          <button class="keyboard-key" data-key="}">}</button>
+          <button class="keyboard-key" data-key="\\">\\</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key key-mode-switch" data-target-mode="numbers">?123</button>
+          <span class="keyboard-spacer"></span>
+          <button class="keyboard-key key-backspace" data-key="Backspace">⌫</button>
+        </div>
+        <div class="keyboard-row">
+          <button class="keyboard-key key-mode-switch" data-target-mode="letters">ABC</button>
+          <button class="keyboard-key" data-key=",">,</button>
+          <button class="keyboard-key key-space" data-key=" ">Space</button>
+          <button class="keyboard-key" data-key=".">.</button>
+          <button class="keyboard-key key-enter" data-key="Enter">⏎</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/js/controller.js"></script>
+</body>
+</html>

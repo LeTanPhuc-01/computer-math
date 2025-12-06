@@ -1,0 +1,141 @@
+/* css/webTouch.css */
+
+/* Default theme: LIGHT */
+:root {
+  --wt-bg: #f3f4f6;
+  --wt-panel-bg: #ffffff;
+  --wt-accent: #2563eb;
+  --wt-text: #111827;
+  --wt-muted: #6b7280;
+
+  --wt-radius: 0.75rem;
+  --wt-gap: 0.5rem;
+
+  --wt-border-color: #d1d5db;
+  --wt-border: 1px solid var(--wt-border-color);
+
+  --wt-input-bg: #f9fafb;
+  --wt-key-bg: #f9fafb;
+  --wt-key-accent-bg: #e5e7eb;
+  --wt-touchpad-border-color: #9ca3af;
+  --wt-cursor-glow: rgba(37, 99, 235, 0.3);
+}
+
+/* Optional: DARK theme variant */
+.wt-theme-dark {
+  --wt-bg: #05060a;
+  --wt-panel-bg: #111827;
+  --wt-accent: #f97316;
+  --wt-text: #e5e7eb;
+  --wt-muted: #6b7280;
+
+  --wt-radius: 0.75rem;
+  --wt-gap: 0.5rem;
+
+  --wt-border-color: #1f2937;
+  --wt-border: 1px solid var(--wt-border-color);
+
+  --wt-input-bg: #020617;
+  --wt-key-bg: #020617;
+  --wt-key-accent-bg: #111827;
+  --wt-touchpad-border-color: #334155;
+  --wt-cursor-glow: rgba(249, 115, 22, 0.35);
+}
+
+/* Layout + components */
+
+.wt-controller {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wt-gap);
+  padding: 1rem;
+  background: radial-gradient(circle at top, #e5e7eb, var(--wt-bg));
+  color: var(--wt-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.wt-panel {
+  background: var(--wt-panel-bg);
+  border-radius: var(--wt-radius);
+  border: var(--wt-border);
+  padding: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.wt-room-form {
+  display: flex;
+  gap: var(--wt-gap);
+  align-items: center;
+}
+
+.wt-room-input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 999px;
+  border: var(--wt-border);
+  background: var(--wt-input-bg);
+  color: var(--wt-text);
+}
+
+.wt-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--wt-accent);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Touchpad area */
+
+.wt-touchpad {
+  margin-top: 0.5rem;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--wt-radius);
+  border: 1px dashed var(--wt-touchpad-border-color);
+  background: radial-gradient(circle at top, #e5e7eb, var(--wt-input-bg));
+  touch-action: none;
+}
+
+/* Keyboard */
+
+.wt-keyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.wt-key {
+  padding: 0.5rem 0.3rem;
+  border-radius: 0.5rem;
+  border: var(--wt-border);
+  background: var(--wt-key-bg);
+  color: var(--wt-text);
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.wt-key--accent {
+  background: var(--wt-key-accent-bg);
+  color: var(--wt-accent);
+}
+
+/* App cursor */
+
+.wt-app-cursor {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid var(--wt-accent);
+  box-shadow: 0 0 0 3px var(--wt-cursor-glow);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
