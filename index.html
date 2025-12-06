@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobileNet MNIST OCR</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f2f5;
+            padding-top: 50px;
+        }
+
+        h1 { color: #333; }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* The Canvas */
+        canvas {
+            border: 2px solid #333;
+            border-radius: 4px;
+            cursor: crosshair;
+            background-color: white; /* Important: Paper is white */
+            touch-action: none; /* Prevents scrolling on mobile while drawing */
+        }
+
+        .controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        button:hover { background-color: #0056b3; }
+        button.clear-btn { background-color: #dc3545; }
+        button.clear-btn:hover { background-color: #a71d2a; }
+
+        /* The Result Display */
+        #result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+        }
+
+        .prediction {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #28a745;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .confidence {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Draw a Digit</h1>
+
+    <div class="container">
+        <!-- 280x280 is exactly 10x larger than the 28x28 input -->
+        <canvas id="drawingCanvas" width="280" height="280"></canvas>
+        
+        <div class="controls">
+            <button class="clear-btn" onclick="clearCanvas()">Clear Board</button>
+        </div>
+
+        <div id="result-box">
+            <div>Predicted Digit:</div>
+            <p id="prediction" class="prediction">-</p>
+            <p id="confidence" class="confidence">Confidence: 0%</p>
+        </div>
+    </div>
+
+    <script src="/model/web_ocr.js"></script>
+</body>
+</html>

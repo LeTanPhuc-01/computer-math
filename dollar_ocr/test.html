@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gesture Recognizer Test</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #333; color: white; }
+        h1 { margin-bottom: 10px; }
+        
+        /* The Drawing Area */
+        canvas {
+            background-color: #1a1a1a;
+            border: 4px solid #4ade80;
+            border-radius: 8px;
+            cursor: crosshair;
+            touch-action: none; /* Critical for mobile support */
+        }
+
+        /* The Result Box */
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f59e0b;
+            height: 30px;
+        }
+
+        .instructions { color: #aaa; margin-bottom: 20px; }
+        button { margin-top: 10px; padding: 10px 20px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <h1>Magic Touch Tester</h1>
+    <p class="instructions">Draw a shape (Circle, Triangle, Check, Caret, etc.)</p>
+    
+    <canvas id="drawCanvas" width="600" height="400"></canvas>
+    <div id="result">Draw something...</div>
+    <button onclick="clearCanvas()">Clear Canvas</button>
+
+    <!-- Load the library as a module -->
+    <script type="module">
+        import OneDollar from './onedollar.js'; 
+        import PDollar from './pdollar.js'; 
+        import QDollar from './qdollar.js'; 
+
+        // 1. Initialize the Recognizer
+        // The library comes with some default templates. 
+        // You can add your own using recognizer.add('Name', [[x,y], [x,y]...])
+        const recognizer = new PDollar();
+
+        // Canvas Setup
+        const canvas = document.getElementById('drawCanvas');
+        const ctx = canvas.getContext('2d');
+        const resultDiv = document.getElementById('result');
+        
+        let isDrawing = false;
+        let points = []; // This will store {x, y} coordinates
+
+        // --- Drawing Events ---
+
+        // Start Drawing
+        function start(e) {
+            isDrawing = true;
+            points = []; // Clear previous points
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear visual canvas
+            
+            const {x, y} = getPos(e);
+            points.push([x, y]); // Library expects arrays [x, y] or objects {x, y} depending on implementation
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.strokeStyle = "#4ade80"; // Green line
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+        }
+
+        // Continue Drawing
+        function move(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); // Stop scrolling on mobile
+            
+            const {x, y} = getPos(e);
+            points.push([x, y]); // Record the point
+            
+            // Draw the line visually
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+
+        // End Drawing & RECOGNIZE
+        function end(e) {
+            if (!isDrawing) return;
+            isDrawing = false;
+
+            if (points.length < 10) {
+                resultDiv.innerText = "Too short!";
+                return;
+            }
+
+            // --- THE MAGIC HAPPENS HERE ---
+            // We pass the collected points to the library
+            const result = recognizer.check(points);
+
+            console.log(result); // Check console for full details (score, name)
+
+            if (result.score > 0.8) { // 0.8 is a good confidence threshold
+                resultDiv.innerText = `Detected: ${result.name} (${Math.round(result.score * 100)}%)`;
+            } else {
+                resultDiv.innerText = `Unrecognized (Best guess: ${result.name})`;
+            }
+        }
+
+        // Helper to get mouse/touch position relative to canvas
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        // Attach Listeners
+        canvas.addEventListener('mousedown', start);
+        canvas.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        
+        canvas.addEventListener('touchstart', start);
+        canvas.addEventListener('touchmove', move);
+        document.addEventListener('touchend', end);
+
+        // Expose clear function to window
+        window.clearCanvas = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            resultDiv.innerText = "Ready";
+        };
+    </script>
+</body>
+</html>
